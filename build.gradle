@@ -1,0 +1,53 @@
+plugins {
+    id "com.techshroom.incise-blue" version "0.0.8"
+    id "net.researchgate.release" version "2.6.0"
+}
+
+apply plugin: 'java-library'
+
+inciseBlue {
+    plugins {
+        apt
+        util
+        maven
+        license
+    }
+
+    util {
+        javaVersion = '9'
+    }
+
+    maven {
+        coords 'TechShroom', 'lettar'
+        description 'Routing library for Java'
+    }
+}
+
+configurations.all {
+   resolutionStrategy {
+     // fail eagerly on version conflict (includes transitive dependencies)
+     // e.g. multiple different versions of the same dependency (group and name are equal)
+     failOnVersionConflict()
+
+     // force certain versions of dependencies (including transitive)
+     force 'com.google.guava:guava:' + guavaVersion, 'com.google.code.findbugs:jsr305:3.0.1'
+
+     cacheDynamicVersionsFor 10, 'minutes'
+     // don't cache changing modules at all
+     cacheChangingModulesFor 0, 'seconds'
+   }
+}
+
+dependencies {
+    api group: 'com.techshroom', name: 'jsr305-plus', version: '0.0.1'
+    api group: 'com.google.guava', name: 'guava', version: project.guavaVersion
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    aptCompileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
+    compileOnly group: 'com.google.auto.value', name: 'auto-value-annotations', version: autoValueVersion
+    annotationProcessor group: 'com.google.auto.value', name: 'auto-value', version: autoValueVersion
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    testImplementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+}
