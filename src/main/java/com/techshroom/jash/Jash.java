@@ -26,4 +26,9 @@ package com.techshroom.jash;
 
 public class Jash {
 
+    public static void main(String[] args) {
+       String profile = Environment.PROFILE;
+       
+    }
+
 }

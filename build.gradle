@@ -14,7 +14,7 @@ inciseBlue {
     }
 
     util {
-        javaVersion = '9'
+        javaVersion = '1.8'
     }
 
     maven {
@@ -41,6 +41,7 @@ configurations.all {
 dependencies {
     api group: 'com.techshroom', name: 'jsr305-plus', version: '0.0.1'
     api group: 'com.google.guava', name: 'guava', version: project.guavaVersion
+    implementation group: 'net.sf.jopt-simple', name: 'jopt-simple', version: joptVersion
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 
     aptCompileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
